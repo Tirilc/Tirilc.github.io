@@ -1,3 +1,4 @@
+//henter elementer fra DOM
 const moves = document.getElementById("moves-count");
 const timeValue = document.getElementById("time");
 const startButton = document.getElementById("start");
@@ -6,11 +7,12 @@ const gameContainer = document.querySelector(".game-container");
 const result = document.getElementById("result");
 const resultTime = document.querySelector('.resultTime');
 const controls = document.querySelector(".controls-container");
+const highScore = document.querySelector('.highScore')
 let cards;
 let interval;
 let firstCard = false;
 let secondCard = false;
-//Items array
+//lager items array
 const items = [
     {name:"turtle",image: "../bilder/turtle.png"},
     {name:"seal", image:"../bilder/seal.png"},
@@ -29,8 +31,13 @@ const items = [
 let seconds = 0,
   minutes = 0;
 //initialiserer moves og win telling
-let movesCount = 0,
+let movesCount = 0;
   winCount = 0;
+
+  //sjekker om localstorage.highscore eksisterer
+if(!localStorage.highScore){ 
+    localStorage.highScore = 0
+}
 //for timer
 const timeGenerator = () => {
   seconds += 1;
@@ -40,7 +47,7 @@ const timeGenerator = () => {
     seconds = 0;
   }
   //formaterer tid før visning
-  let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
+  let secondsValue = seconds < 10 ? `0${seconds}` : seconds; //dersom sekunder er mindre enn 10 da skal det stå 0 først, : betyr ellersA
   let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
   timeValue.innerHTML = `<span>Time:</span>${minutesValue}:${secondsValue}`;
   resultTime.innerHTML = `<h4>Tiden din er ${minutesValue}:${secondsValue}</h4>`;
@@ -116,6 +123,10 @@ const matrixGenerator = (cardValues, size = 4) => {
               result.innerHTML = `<h2>Du vant!</h2>
             <h4>Du brukte ${movesCount} trekk</h4>`;
               stopGame();
+              if(movesCount < localStorage.highScore){//sjekker om moves count er større og oppdaterer local storage
+                localStorage.highScore = movesCount
+              }
+              highScore.innerHTML = `<h4>High Score: ${localStorage.highScore}</h4>`
             }
           } else {
             //hvis kortet ikke matcher
@@ -166,3 +177,4 @@ const initializer = () => {
   console.log(cardValues);
   matrixGenerator(cardValues);
 };
+

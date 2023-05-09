@@ -161,6 +161,19 @@ ul{
         margin-bottom: 30px;
     }
 }
+
+@media screen and (max-width:360){
+    .red p{
+        font-size: 9px;
+    }
+    .red h4{
+        font-size: 10px;
+    }
+    .red{
+        width: 100vw;
+    }
+}
+
 @media screen and (max-width:600px){
     .footer-col{
         width: 100%;
@@ -171,7 +184,7 @@ ul{
     .red{
         padding: 0 10px;
         width: 90vw;
-        height: 350px;
+        height: 400px;
     }
 
 }

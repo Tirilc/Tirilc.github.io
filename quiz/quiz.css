@@ -3,6 +3,7 @@ main{
     align-items: center;
     justify-content: space-around;
     min-height: 100vh;
+    background-color: #EEE9DA;
 }
 
 .qa_box{
